@@ -1,9 +1,9 @@
-##WEATHER APP
+## WEATHER APP
 This is a simple app that retrieves weather information for cities that I have lived in.
 
 Website Process outline and Notes
-- Create frontend Homepage container with 5 weatherboxes
-- Populate the boxes with fake data to see that everything is going smooth
+- Create frontend Homepage container with 5 weatherboxes (DONE)
+- Populate the boxes with fake data (not hardcoded) to see that everything is going smooth
 - Create API retrieval methods and make sure the data lines up
 - Populate boxes with real data and fix the css
 - Create template for individual city page
@@ -30,4 +30,7 @@ Individual View (City page)
 - 5 day forecast
 - icons for all this stuff
 - other random stuff like wind, humidity, uv, pressure
- 
+
+
+Implementation Notes:
+- Problems displaying UTF-8 symbols
