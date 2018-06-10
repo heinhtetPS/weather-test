@@ -3,8 +3,8 @@ This is a simple app that retrieves weather information for cities that I have l
 
 Website Process outline and Notes
 - Create frontend Homepage container with 5 weatherboxes (DONE)
-- Populate the boxes with fake data (not hardcoded) to see that everything is going smooth
-- Create API retrieval methods and make sure the data lines up
+- Populate the boxes with fake data (not hardcoded) to see that everything is going smooth (DONE)
+- Create API retrieval methods and make sure the data lines up (DONE)
 - Populate boxes with real data and fix the css
 - Create template for individual city page
 - Populate indiv page with fake data and fix css
@@ -13,9 +13,9 @@ Website Process outline and Notes
 Cities
 - Brooklyn, NY
 - Framingham, MA
-- Ranchocucamonga, CA
-- Flagstaff, AZ
-- Chicago, IL
+- Redlands, CA
+- Nagoya, JP
+- Yangon, MM
 
 Simple view (Homepage)
 - city name
@@ -32,5 +32,8 @@ Individual View (City page)
 - other random stuff like wind, humidity, uv, pressure
 
 
-Implementation Notes:
+Implementation Notes/problems:
 - Problems displaying UTF-8 symbols
+- ditched async in favor of just doing 5 requests in a row
+- Data has now been passed into individual boxes. But for some reason props.info.main is undefined
+- next: Investigate props problem, populate databoxes properly, fix css and icons

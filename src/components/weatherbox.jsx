@@ -15,13 +15,13 @@ class WeatherBox extends React.Component {
       dd = '0'+dd;
     if(mm<10)
       mm = '0'+mm;
-
   return(mm + '/' + dd + '/' + yyyy);
  }
 
   render () {
-    // console.log(this.props.info.main.temp); for h1temp
-    
+    //whats the problem with this???
+    console.log(this.props.info.main);
+
     return (
       <div className="weather-box">
         <div className="box-header">
@@ -48,5 +48,5 @@ class WeatherBox extends React.Component {
     );
   }
 }
-// <Link to="/city">Details...</Link>
+
 export default WeatherBox;
