@@ -50,14 +50,16 @@ class WeatherContainer extends React.Component {
 
   render () {
     return (
-      <ul className="box-list">
-        {this.state.cities.map(
-          city => <WeatherBox
-          name={city.fullName}
-          key={city.id}
-          info={city.info}
-          />)}
-      </ul>
+      <div className="weathercontainer-global">
+        <ul className="box-list">
+          {this.state.cities.map(
+            city => <WeatherBox
+            name={city.fullName}
+            key={city.id}
+            info={city.info}
+            />)}
+          </ul>
+      </div>
     );
   }
 

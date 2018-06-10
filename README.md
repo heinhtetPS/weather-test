@@ -11,7 +11,7 @@ This is a simple app that retrieves current weather information for cities that 
 - There is no backend or database as we are not persisting data across sessions.
 - API calls are made to openweathermap.org using npm's request library.
 
-### Website Process outline and Notes
+### Implementation process outline and notes
 - Create frontend Homepage container with 5 weatherboxes (DONE)
 - Populate the boxes with fake data (not hardcoded) to see that everything is going smooth (DONE)
 - Create API retrieval methods and make sure the data lines up (DONE)
@@ -21,7 +21,7 @@ This is a simple app that retrieves current weather information for cities that 
 - Populate indiv page with fake data and fix css
 - Get real API data for more detailed cities
 
-### Cities
+### Cities List
 - Brooklyn, NY
 - Framingham, MA
 - Redlands, CA
@@ -29,7 +29,7 @@ This is a simple app that retrieves current weather information for cities that 
 - Yangon, MM
 
 ### Simple view (Homepage)
-- city name
+- City name
 - Today's Date
 - Forecast
 - icon for forecast
@@ -43,8 +43,9 @@ This is a simple app that retrieves current weather information for cities that 
 - other random stuff like wind, humidity, uv, pressure
 
 
-### Implementation Notes/problems:
+### Implementation issues/problems:
 - Problems displaying UTF-8 symbols
 - ditched async.waterfall in favor of just doing 5 requests in a row
 - Data has now been passed into individual boxes. But for some reason props.info.main is undefined
 - next: Investigate props problem, populate databoxes properly, fix css and icons
+- write a bit more about single page navi
