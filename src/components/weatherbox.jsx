@@ -3,13 +3,27 @@ import React from 'react';
 class WeatherBox extends React.Component {
   constructor(props) {
    super(props);
+   this.getDate = this.getDate.bind(this);
+ }
+
+ getDate() {
+    const today = new Date();
+    let dd = today.getDate();
+    let mm = today.getMonth()+1; //January is 0!
+    let yyyy = today.getFullYear();
+    if(dd<10)
+      dd = '0'+dd;
+    if(mm<10)
+      mm = '0'+mm;
+      
+  return(mm + '/' + dd + '/' + yyyy);
  }
 
   render () {
     return (
       <div className="weather-box">
         <div className="box-header">
-          <h3>Today's Weather (6/9/2018) in:</h3>
+          <h3>Today's Weather ({this.getDate()}) in:</h3>
           <h1>Brooklyn, NY</h1>
         </div>
         <div className="box-middle-content">

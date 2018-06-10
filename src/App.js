@@ -1,9 +1,28 @@
 import React, { Component } from 'react';
 import WeatherBox from './components/weatherbox.jsx';
 import './App.css';
+import waterfall from 'async/waterfall';
+import extend from 'extend';
 
 class App extends Component {
+
+  fetchData() {
+    const async = require('async');
+    let finalData = {};
+    let staticURL = '';
+
+
+    async.waterfall(
+
+
+    )
+
+  }
+
   render() {
+    const testData = {};
+
+
     return (
       <div className="App">
         <header className="App-header">
