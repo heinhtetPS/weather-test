@@ -15,7 +15,7 @@ class WeatherBox extends React.Component {
       dd = '0'+dd;
     if(mm<10)
       mm = '0'+mm;
-      
+
   return(mm + '/' + dd + '/' + yyyy);
  }
 
@@ -24,7 +24,7 @@ class WeatherBox extends React.Component {
       <div className="weather-box">
         <div className="box-header">
           <h3>Today's Weather ({this.getDate()}) in:</h3>
-          <h1>Brooklyn, NY</h1>
+          <h2>{this.props.name}</h2>
         </div>
         <div className="box-middle-content">
           <div className="forecast-left">

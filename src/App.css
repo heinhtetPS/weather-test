@@ -4,7 +4,7 @@
 
 .App-header {
   background-color: #222;
-  height: 80px;
+  height: 60px;
   padding: 20px;
   color: white;
 }
@@ -17,9 +17,8 @@
   font-size: large;
 }
 
-.weatherboxes-global-container {
+.box-list {
   display: flex;
-
 }
 
 .weather-box {
