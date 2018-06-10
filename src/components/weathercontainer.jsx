@@ -9,11 +9,11 @@ class WeatherContainer extends React.Component {
     super(props);
     this.state = {
       cities: [
-                {fullName: 'Brooklyn, NY', id:1 },
-                {fullName: 'Framingham, MA', id:2 },
-                {fullName: 'Ranchocucamonga, CA', id:3 },
-                {fullName: 'Flagstaff, AZ', id:4 },
-                {fullName: 'Chicago, IL', id:5 }
+                {fullName: 'Brooklyn, NY', id:1, info: {} },
+                {fullName: 'Framingham, MA', id:2, info: {} },
+                {fullName: 'Ranchocucamonga, CA', id:3, info: {} },
+                {fullName: 'Flagstaff, AZ', id:4, info: {} },
+                {fullName: 'Chicago, IL', id:5, info: {} }
               ]
     };
   }
@@ -28,8 +28,9 @@ class WeatherContainer extends React.Component {
       if (!err && response.statusCode === 200) {
         let json = JSON.parse(body);
         finalData = json;
-        console.log('does it come here?');
-        return finalData;
+        //right now this is retrieving brooklyn and only updating bk through this
+        //next: use waterfall or do 5 times in order to get other cities
+        extend(this.state.cities[0].info, finalData);
       } else {
         console.log(err);
       }
@@ -41,18 +42,22 @@ class WeatherContainer extends React.Component {
     // )
   }
 
+  cityRequest(city, url, target) {
+
+  }
+
   componentDidMount() {
     this.fetchData();
   }
 
   render () {
-
     return (
       <ul className="box-list">
         {this.state.cities.map(
           city => <WeatherBox
           name={city.fullName}
           key={city.id}
+          info={city.info}
           />)}
       </ul>
     );

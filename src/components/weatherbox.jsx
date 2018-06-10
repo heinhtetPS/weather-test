@@ -20,6 +20,8 @@ class WeatherBox extends React.Component {
  }
 
   render () {
+    // console.log(this.props.info.main.temp); for h1temp
+    
     return (
       <div className="weather-box">
         <div className="box-header">
@@ -28,7 +30,7 @@ class WeatherBox extends React.Component {
         </div>
         <div className="box-middle-content">
           <div className="forecast-left">
-            <h1>81*</h1>
+            <h1>99</h1>
             <h3>Partly Cloudy</h3>
           </div>
           <div className="forecast-right">
