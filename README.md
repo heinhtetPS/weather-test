@@ -47,5 +47,10 @@ This is a simple app that retrieves current weather information for cities that 
 - Problems displaying UTF-8 symbols
 - ditched async.waterfall in favor of just doing 5 requests in a row
 - Data has now been passed into individual boxes. But for some reason props.info.main is undefined
+- Props problem has been figured out, however it presents a new problem:
+  - Props are undefined because re-render always re-pulls empty info from weathercontainer state
+  - This is because STATE is not changed after API call
+  - Need to use setState instead of extend inside API call
+  - Fixed this problem by using forceUpdate, can probably also use complicated variations of setState
 - next: Investigate props problem, populate databoxes properly, fix css and icons
 - write a bit more about single page navi

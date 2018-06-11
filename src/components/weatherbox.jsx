@@ -5,6 +5,7 @@ class WeatherBox extends React.Component {
   constructor(props) {
    super(props);
    this.getDate = this.getDate.bind(this);
+   this.convertTemp = this.convertTemp.bind(this);
  }
 
  getDate() {
@@ -13,15 +14,19 @@ class WeatherBox extends React.Component {
     let mm = today.getMonth()+1; //January is 0!
     let yyyy = today.getFullYear();
     if(dd<10)
-      dd = '0'+dd;
+      dd = '0'+ dd;
     if(mm<10)
-      mm = '0'+mm;
+      mm = '0'+ mm;
   return(mm + '/' + dd + '/' + yyyy);
+ }
+
+ convertTemp(desiredUnit) {
+
  }
 
   render () {
     //whats the problem with this???
-    console.log(this.props.info.clouds);
+    // console.log(this.props.info);
 
     //this is for BIG BOX
     if (window.location.href.includes("details")) {
@@ -56,6 +61,20 @@ class WeatherBox extends React.Component {
       let cityname = this.props.name.substring(0, this.props.name.indexOf(','));
       let linkURL = '/details/' + cityname;
 
+      let weatherInfo = null;
+      let majorTemp = null;
+
+      if (this.props.info === {} || !this.props.info) {
+        console.log(this.props);
+        return (<p>Loading...</p>);
+      } else {
+        console.log(this.props);
+        weatherInfo = this.props.info;
+        majorTemp = weatherInfo.main ? weatherInfo.main.temp : 'loading...';
+      }
+
+
+
       return (
         <div className="weather-box">
           <div className="box-header">
@@ -64,7 +83,7 @@ class WeatherBox extends React.Component {
           </div>
           <div className="box-middle-content">
             <div className="forecast-left">
-              <h1>99</h1>
+              <h1>{majorTemp}</h1>
               <h3>Partly Cloudy</h3>
             </div>
             <div className="forecast-right">
