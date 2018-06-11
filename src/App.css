@@ -42,3 +42,16 @@
 .weather-box-large {
   width: 100%;
 }
+
+.big-box-left {
+  width: 50%;
+}
+
+.page-header {
+  text-align: left;
+  margin-left: 20px;
+}
+
+.forecast-box {
+  border: 1px solid blue;
+}

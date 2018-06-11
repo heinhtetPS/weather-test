@@ -1,11 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import SingleDay from './singleDay.jsx';
+import extend from 'extend';
 
 class WeatherBox extends React.Component {
   constructor(props) {
    super(props);
    this.getDate = this.getDate.bind(this);
    this.convertTemp = this.convertTemp.bind(this);
+   this.fetchData = this.fetchData.bind(this);
  }
 
  getDate() {
@@ -28,35 +31,86 @@ class WeatherBox extends React.Component {
    return converter.k2f(value).toString().split('.')[0];
  }
 
+ fetchData() {
+   const request = require('request');
+   const staticURL = 'http://api.openweathermap.org/data/2.5/forecast?q=';
+   let data = {forecast: ''};
+   let city = this.props.location.pathname.split("/")[2];
+   let appID = '&appid=bcb83c4b54aee8418983c2aff3073b3b';
+   let fullURL = staticURL + city + appID + "cnt=5";
+
+   console.log(fullURL);
+
+   // request(fullURL, (err, response, body) => {
+   //   if (!err && response.statusCode === 200) {
+   //     let json = JSON.parse(body);
+   //     data.info = json;
+   //     this.extendData(target, data);
+   //   } else {
+   //     console.log(err);
+   //   }
+   // });
+ }
+
+ extendData(target, data) {
+   extend(target, data);
+   this.forceUpdate();
+ }
+
   render () {
-    //whats the problem with this???
-    // console.log(this.props.info);
 
     //this is for BIG BOX
     if (window.location.href.includes("details")) {
 
+      this.fetchData();
+
+      let cityname = '';
+      switch (this.props.location.pathname.split("/")[2]) {
+        case 'Brooklyn':
+          cityname = "Brooklyn, NY"
+          break;
+        case 'Framingham':
+          cityname = "Framingham, MA"
+          break;
+        case 'Redlands':
+          cityname = "Redlands, CA"
+          break;
+        case 'Nagoya':
+          cityname = "Nagoya, JP"
+          break;
+        case 'Yangon':
+          cityname = "Yangon, MM"
+          break;
+        default:
+      }
+
       return (
         <div className="weather-box-large">
-          <div className="box-header">
-            <h2>{this.props.name}</h2>
-            <h3>{this.getDate()}</h3>
-          </div>
-          <div className="box-middle-content">
-            <div className="forecast-left">
-              <h1>99</h1>
-              <h3>Partly Cloudy</h3>
+          <div className="big-box-left">
+            <div className="box-header">
+              <h2 className="page-header">{cityname}</h2>
+              <h3>{this.getDate()}</h3>
             </div>
-            <div className="forecast-right">
-              <img className="weather-icon"
-                src="http://icons-for-free.com/icon/download-cloud_forecast_grey_rain_sun_weather_icon-433363.png">
-              </img>
+            <div className="box-middle-content">
+              <div className="forecast-left">
+                <h1>99</h1>
+                <h3>Partly Cloudy</h3>
+              </div>
+              <div className="forecast-right">
+                <img className="weather-icon"
+                  src="http://icons-for-free.com/icon/download-cloud_forecast_grey_rain_sun_weather_icon-433363.png">
+                </img>
+              </div>
             </div>
+            <div className="box-bottom-content">
+              <h2>High: 89 &#8457</h2>
+              <h2>Low: 75 &#8457</h2>
+            </div>
+            <Link to="/">Back</Link>
           </div>
-          <div className="box-bottom-content">
-            <h2>High: 89 &#8457</h2>
-            <h2>Low: 75 &#8457</h2>
+          <div className="big-box-right">
+
           </div>
-          <Link to="/">Back</Link>
         </div>
       );
 

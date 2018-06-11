@@ -56,4 +56,5 @@ This is a simple app that retrieves current weather information for cities that 
   - Need to use setState instead of extend inside API call
   - Fixed this problem by using forceUpdate, can probably also use complicated variations of setState
 - next: Implement large page, fix css and icons, another api call for forecast?
+  - large page has no props when it starts
 - write a bit more about single page navi

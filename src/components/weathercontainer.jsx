@@ -57,7 +57,7 @@ class WeatherContainer extends React.Component {
   render () {
 
     if (!this.state.cities[0].info) {
-      console.log(this.state);
+      // console.log(this.state);
       return (<p>Loading...</p>);
     } else {
       return (
