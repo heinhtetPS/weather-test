@@ -20,8 +20,12 @@ class WeatherBox extends React.Component {
   return(mm + '/' + dd + '/' + yyyy);
  }
 
- convertTemp(desiredUnit) {
-
+ convertTemp(value, desiredUnit) {
+   const converter = require('temp-units-conv');
+   if (desiredUnit === 'c')
+   return converter.k2c(value).toString().split('.')[0];
+   if (desiredUnit === 'f')
+   return converter.k2f(value).toString().split('.')[0];
  }
 
   render () {
@@ -63,17 +67,22 @@ class WeatherBox extends React.Component {
 
       let weatherInfo = null;
       let majorTemp = null;
+      let high = null;
+      let low = null;
+      let description = null;
+      let icon = null;
 
       if (this.props.info === {} || !this.props.info) {
-        console.log(this.props);
         return (<p>Loading...</p>);
       } else {
-        console.log(this.props);
+        //asyc call is done
         weatherInfo = this.props.info;
         majorTemp = weatherInfo.main ? weatherInfo.main.temp : 'loading...';
+        high = weatherInfo.main ? weatherInfo.main.temp_max : 'loading...';
+        low = weatherInfo.main ? weatherInfo.main.temp_min : 'loading...';
+        description = weatherInfo.weather ? weatherInfo.weather[0].description : 'loading...';
+        icon = weatherInfo.weather ? `http://openweathermap.org/img/w/${weatherInfo.weather[0].icon}.png` : null;
       }
-
-
 
       return (
         <div className="weather-box">
@@ -82,25 +91,25 @@ class WeatherBox extends React.Component {
             <h2>{this.props.name}</h2>
           </div>
           <div className="box-middle-content">
-            <div className="forecast-left">
-              <h1>{majorTemp}</h1>
-              <h3>Partly Cloudy</h3>
+            <div className="middle-left">
+              <h1>{this.convertTemp(majorTemp, 'f')}°</h1>
+
             </div>
-            <div className="forecast-right">
+            <div className="middle-right">
               <img className="weather-icon"
-                src="http://icons-for-free.com/icon/download-cloud_forecast_grey_rain_sun_weather_icon-433363.png">
+                src={icon}>
               </img>
             </div>
           </div>
           <div className="box-bottom-content">
-            <h2>High: 89 &#8457</h2>
-            <h2>Low: 75 &#8457</h2>
+            <h3>{description}</h3>
+            <h2>High:{this.convertTemp(high, 'f')}°</h2>
+            <h2>Low:{this.convertTemp(low, 'f')}°</h2>
           </div>
           <Link to={linkURL}>More Details...</Link>
         </div>
       );
     }
-
   }
 }
 

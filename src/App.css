@@ -1,10 +1,11 @@
+
 .App {
   text-align: center;
 }
 
 .App-header {
   background-color: #222;
-  height: 60px;
+  height: 40px;
   padding: 20px;
   color: white;
 }
@@ -29,11 +30,13 @@
 
 .box-middle-content {
   display: flex;
+  justify-content: space-evenly;
 }
 
 .weather-icon {
   width: 80px;
   height: 80px;
+  border: 1px solid black;
 }
 
 .weather-box-large {

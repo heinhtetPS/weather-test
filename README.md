@@ -9,14 +9,16 @@ This is a simple app that retrieves current weather information for cities that 
 ### Tech Info
 - Frontend Framework is React.js, specifically implemented using create-react-app for fast startup.
 - There is no backend or database as we are not persisting data across sessions.
-- API calls are made to openweathermap.org using npm's request library.
+- NPM libraries used:
+  - request (to make east API Calls)
+  - extend (simple object merging)
+  - temp-units-conv (convert kelvins to C or F)
 
 ### Implementation process outline and notes
 - Create frontend Homepage container with 5 weatherboxes (DONE)
 - Populate the boxes with fake data (not hardcoded) to see that everything is going smooth (DONE)
 - Create API retrieval methods and make sure the data lines up (DONE)
-- Populate boxes with real data and fix the css
-- Create template for individual city page (DONT NEED)
+- Populate boxes with real data and fix the css (DONE)
 - We can re-use the same weatherbox component to show a more detailed view, depending on path
 - Populate indiv page with fake data and fix css
 - Get real API data for more detailed cities
@@ -45,6 +47,7 @@ This is a simple app that retrieves current weather information for cities that 
 
 ### Implementation issues/problems:
 - Problems displaying UTF-8 symbols
+  - Fixed above by just copy pasting the symbol
 - ditched async.waterfall in favor of just doing 5 requests in a row
 - Data has now been passed into individual boxes. But for some reason props.info.main is undefined
 - Props problem has been figured out, however it presents a new problem:
@@ -52,5 +55,5 @@ This is a simple app that retrieves current weather information for cities that 
   - This is because STATE is not changed after API call
   - Need to use setState instead of extend inside API call
   - Fixed this problem by using forceUpdate, can probably also use complicated variations of setState
-- next: Investigate props problem, populate databoxes properly, fix css and icons
+- next: Implement large page, fix css and icons, another api call for forecast?
 - write a bit more about single page navi
