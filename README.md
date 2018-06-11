@@ -1,5 +1,6 @@
 ## WEATHER APP
 [Live Link (not implemented yet)](https://github.com/heinhtetPS)
+
 This is a simple single-page app that retrieves current weather information for cities that I have lived in. Users can browse 5 cities on the homepage or get more detailed info, including a 5-day forecast, on the individual citys' page. 
 
 ### MVP GOALS
