@@ -1,6 +1,8 @@
 ## WEATHER APP
 [Live Link](http://heinhtetps.info/weather-test/)
 
+![alt text](https://github.com/heinhtetPS/weather-test/blob/master/public/preview.jpg "preview")
+
 This is a simple single-page app that retrieves current weather information for cities that I have lived in. Users can browse 5 cities on the homepage or get more detailed info, including a 5-day forecast, on the individual citys' page.
 
 ### MVP GOALS
