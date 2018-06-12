@@ -21,10 +21,10 @@ class singleDay extends React.Component {
       let year = date.getFullYear();
       let month = date.getMonth()+1;
       let day = date.getDate();
-      // if(day < 10)
-      //   day = '0'+ day;
-      // if(month < 10)
-      //   month = '0'+ month;
+      if(day < 10)
+        day = '0'+ day;
+      if(month < 10)
+        month = '0'+ month;
       return month + "/" + day + "/" + year;
   }
 
@@ -39,8 +39,8 @@ render () {
       <h3 className="tighter">Forecast for: {this.convertTimestamp(this.props.info.dt)}</h3>
       <div className="box-middle-content">
         <div className="middle-left">
-          <h3 className="tighter">{this.convertTemp(this.props.info.main.temp, 'f')}°</h3>
-          <p>{this.props.info.weather[0].description}</p>
+          <h3>{this.convertTemp(this.props.info.main.temp, 'f')}°</h3>
+          <p className="tighter">{this.props.info.weather[0].description}</p>
         </div>
         <div className="middle-right">
           <img className="weather-icon"

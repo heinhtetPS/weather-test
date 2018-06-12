@@ -6,7 +6,7 @@
 .App-header {
   background-color: #222;
   height: 40px;
-  padding: 20px;
+  padding: 5px 10px 20px 0px;
   color: white;
 }
 
@@ -18,14 +18,23 @@
   font-size: large;
 }
 
+.weathercontainer-global {
+
+}
+
 .box-list {
   display: flex;
+  margin: 0;
+  padding: 0;
 }
 
 .weather-box {
-  border: 1px solid green;
   width: 20%;
-  height: 400px;
+  height: 380px;
+  margin: 10px 10px 0px 10px;
+  padding: 0px 0px 0px 0px;
+  border-radius: 6px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
 
 .box-middle-content {
@@ -36,36 +45,51 @@
 .weather-icon {
   width: 80px;
   height: 80px;
-  border: 1px solid black;
+  object-fit: cover;
+}
+
+.temps {
+  margin: 10px 0px 10px 0px;
+}
+
+.linker {
+  text-decoration: none;
+  color: black;
+}
+
+.linker:hover {
+  text-decoration: underline;
 }
 
 .weather-box-large {
   width: 100%;
   display: flex;
+  margin-left: 110px;
 }
 
 .big-box-left {
-  width: 50%;
+  width: 40%;
+  padding: 0px 0px 0px 0px;
 }
 
 .big-box-right {
-  width: 50%;
-  border: 1px solid green;
+  width: 34%;
+  height: 440px;
+  overflow: auto;
 }
 
 .box-bottom-content-large {
-  
+
 }
 
-.page-header {
-  text-align: left;
-  margin-left: 20px;
-}
 
 .forecast-box {
-  border: 1px solid blue;
+  border-radius: 6px;
   width: 400px;
   height: 160px;
+  padding: 10px 0px 5px 0px;
+  margin: 10px 0px 5px 0px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
 
 .tighter {

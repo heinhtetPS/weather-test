@@ -149,7 +149,7 @@ class WeatherBox extends React.Component {
               <div className="box-middle-content">
                 <div className="forecast-left">
                   <h1>{this.convertTemp(main.temp, 'f')}°</h1>
-                  <h3>{description}</h3>
+                  <h2>{description}</h2>
                 </div>
                 <div className="forecast-right">
                   <img className="weather-icon"
@@ -158,15 +158,16 @@ class WeatherBox extends React.Component {
                 </div>
               </div>
               <div className="box-bottom-content-large">
-                <h2>High: {this.convertTemp(main.temp_max, 'f')}°</h2>
-                <h2>Low: {this.convertTemp(main.temp_min, 'f')}°</h2>
-                <h3>Humidity: {main.humidity} %</h3>
-                <h3>Pressure: {main.pressure} hPA</h3>
-                <h3>Wind Speed: {wind.speed} m/hr</h3>
+                <h2 className="temps">High: {this.convertTemp(main.temp_max, 'f')}°</h2>
+                <h2 className="temps">Low: {this.convertTemp(main.temp_min, 'f')}°</h2>
+                <h3 className="temps">Humidity: {main.humidity} %</h3>
+                <h3 className="temps">Pressure: {main.pressure} hPA</h3>
+                <h3 className="temps">Wind Speed: {wind.speed} m/hr</h3>
               </div>
-              <Link to="/">Back</Link>
+              <Link className="linker" to="/">Back</Link>
             </div>
             <div className="big-box-right">
+              <h2>5-Day Forecast:</h2>
               {forecastDays.map(
                 day => <SingleDay
                 key={day.id}
@@ -219,11 +220,11 @@ class WeatherBox extends React.Component {
             </div>
           </div>
           <div className="box-bottom-content">
-            <h3>{description}</h3>
-            <h2>High:{this.convertTemp(high, 'f')}°</h2>
-            <h2>Low:{this.convertTemp(low, 'f')}°</h2>
+            <h2>{description}</h2>
+            <h3 className="temps">High: {this.convertTemp(high, 'f')}°</h3>
+            <h3 className="temps">Low: {this.convertTemp(low, 'f')}°</h3>
           </div>
-          <Link to={linkURL}>More Details...</Link>
+          <Link className="linker" to={linkURL}>More Details...</Link>
         </div>
       );
     }
