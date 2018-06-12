@@ -36,8 +36,10 @@ class WeatherBox extends React.Component {
    const staticURL = 'http://api.openweathermap.org/data/2.5/forecast?q=';
    let data = {forecast: ''};
    let city = this.props.location.pathname.split("/")[2];
+   if (city === "Brooklyn")
+   city = 'brooklyn,us';
    let appID = '&appid=bcb83c4b54aee8418983c2aff3073b3b';
-   let fullURL = staticURL + city + appID + "cnt=5";
+   let fullURL = staticURL + city + appID + "&cnt=6";
 
    console.log(fullURL);
 
@@ -63,6 +65,14 @@ class WeatherBox extends React.Component {
     if (window.location.href.includes("details")) {
 
       this.fetchData();
+
+      let fakedata = [
+        {id: 1, date: '1/1/18'},
+        {id: 2, date: '1/2/18'},
+        {id: 3, date: '1/3/18'},
+        {id: 4, date: '1/4/18'},
+        {id: 5, date: '1/5/18'},
+      ];
 
       let cityname = '';
       switch (this.props.location.pathname.split("/")[2]) {
@@ -109,7 +119,10 @@ class WeatherBox extends React.Component {
             <Link to="/">Back</Link>
           </div>
           <div className="big-box-right">
-
+            {fakedata.map(
+              day => <SingleDay
+              key={day.id}
+              date={day.date} />)}
           </div>
         </div>
       );

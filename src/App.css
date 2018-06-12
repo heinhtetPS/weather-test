@@ -41,10 +41,16 @@
 
 .weather-box-large {
   width: 100%;
+  display: flex;
 }
 
 .big-box-left {
   width: 50%;
+}
+
+.big-box-right {
+  width: 50%;
+  border: 1px solid green;
 }
 
 .page-header {
@@ -54,4 +60,10 @@
 
 .forecast-box {
   border: 1px solid blue;
+  width: 400px;
+  height: 160px;
+}
+
+.tighter {
+  margin: 1px;
 }
