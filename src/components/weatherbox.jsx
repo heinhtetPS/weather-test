@@ -9,6 +9,10 @@ class WeatherBox extends React.Component {
    this.getDate = this.getDate.bind(this);
    this.convertTemp = this.convertTemp.bind(this);
    this.fetchData = this.fetchData.bind(this);
+
+   this.state = {
+     forecast: {}
+   };
  }
 
  getDate() {
@@ -34,24 +38,22 @@ class WeatherBox extends React.Component {
  fetchData() {
    const request = require('request');
    const staticURL = 'http://api.openweathermap.org/data/2.5/forecast?q=';
-   let data = {forecast: ''};
+   let data = {};
    let city = this.props.location.pathname.split("/")[2];
    if (city === "Brooklyn")
    city = 'brooklyn,us';
-   let appID = '&appid=bcb83c4b54aee8418983c2aff3073b3b';
+   let appID = '&appid=df00cda1893df4914640c19962cd1427';
    let fullURL = staticURL + city + appID + "&cnt=6";
 
-   console.log(fullURL);
-
-   // request(fullURL, (err, response, body) => {
-   //   if (!err && response.statusCode === 200) {
-   //     let json = JSON.parse(body);
-   //     data.info = json;
-   //     this.extendData(target, data);
-   //   } else {
-   //     console.log(err);
-   //   }
-   // });
+   request(fullURL, (err, response, body) => {
+     if (!err && response.statusCode === 200) {
+       let json = JSON.parse(body);
+       data = json;
+       this.extendData(this.state.forecast, data);
+     } else {
+       console.log(err);
+     }
+   });
  }
 
  extendData(target, data) {
@@ -59,20 +61,15 @@ class WeatherBox extends React.Component {
    this.forceUpdate();
  }
 
+ componentDidMount() {
+   if (window.location.href.includes("details"))
+   this.fetchData();
+ }
+
   render () {
 
     //this is for BIG BOX
     if (window.location.href.includes("details")) {
-
-      this.fetchData();
-
-      let fakedata = [
-        {id: 1, date: '1/1/18'},
-        {id: 2, date: '1/2/18'},
-        {id: 3, date: '1/3/18'},
-        {id: 4, date: '1/4/18'},
-        {id: 5, date: '1/5/18'},
-      ];
 
       let cityname = '';
       switch (this.props.location.pathname.split("/")[2]) {
@@ -94,38 +91,79 @@ class WeatherBox extends React.Component {
         default:
       }
 
-      return (
-        <div className="weather-box-large">
-          <div className="big-box-left">
-            <div className="box-header">
-              <h2 className="page-header">{cityname}</h2>
-              <h3>{this.getDate()}</h3>
-            </div>
-            <div className="box-middle-content">
-              <div className="forecast-left">
-                <h1>99</h1>
-                <h3>Partly Cloudy</h3>
+      let forecastDays = {};
+
+      if (this.state.forecast === {}) {
+        return (<p>Loading...</p>);
+      } else {
+
+        //DATA came back in a weird way where I could not index into LIST using [0]
+        //so the code below is used to transfer them into another container
+        //Note: forecastDays[0] is current
+        for(var index in this.state.forecast.list) {
+          if (this.state.forecast.list.hasOwnProperty(index)) {
+            forecastDays[index] = this.state.forecast.list[index];
+          }
+        }
+
+        //had to do it a 2nd time because these keys were still inaccessible
+        let current = forecastDays[0];
+        let main = {};
+        let weather = {};
+        let description = '';
+        let wind = {};
+        for(var key in current) {
+          if (current.hasOwnProperty(key)) {
+            // console.log(key);
+            // console.log(current[key]);
+            if (key === 'main')
+            main = current[key];
+            if (key === 'weather')
+            weather = current[key];
+            if (key === 'wind')
+            wind = current[key];
+          }
+        }
+        for(var key in weather) {
+          if (weather.hasOwnProperty(key))
+          description = weather[key].description;
+        }
+
+        console.log(wind.speed);
+
+        return (
+          <div className="weather-box-large">
+            <div className="big-box-left">
+              <div className="box-header">
+                <h2 className="page-header">{cityname}</h2>
+                <h3>{this.getDate()}</h3>
               </div>
-              <div className="forecast-right">
-                <img className="weather-icon"
-                  src="http://icons-for-free.com/icon/download-cloud_forecast_grey_rain_sun_weather_icon-433363.png">
-                </img>
+              <div className="box-middle-content">
+                <div className="forecast-left">
+                  <h1>{this.convertTemp(main.temp, 'f')}°</h1>
+                  <h3>{description}</h3>
+                </div>
+                <div className="forecast-right">
+                  <img className="weather-icon"
+                    src="http://icons-for-free.com/icon/download-cloud_forecast_grey_rain_sun_weather_icon-433363.png">
+                  </img>
+                </div>
+              </div>
+              <div className="box-bottom-content-large">
+                <h2>High: {this.convertTemp(main.temp_max, 'f')}°</h2>
+                <h2>Low: {this.convertTemp(main.temp_min, 'f')}°</h2>
+                <h3>Humidity: {main.humidity} %</h3>
+                <h3>Pressure: {main.pressure} hPA</h3>
+                <h3>Wind Speed: {wind.speed} m/hr</h3>
+              </div>
+              <Link to="/">Back</Link>
+            </div>
+            <div className="big-box-right">
+              <SingleDay />
               </div>
             </div>
-            <div className="box-bottom-content">
-              <h2>High: 89 &#8457</h2>
-              <h2>Low: 75 &#8457</h2>
-            </div>
-            <Link to="/">Back</Link>
-          </div>
-          <div className="big-box-right">
-            {fakedata.map(
-              day => <SingleDay
-              key={day.id}
-              date={day.date} />)}
-          </div>
-        </div>
-      );
+          );
+      }
 
     } else {
       //THIS IS FOR NORMAL SIZED BOX
@@ -151,6 +189,8 @@ class WeatherBox extends React.Component {
         icon = weatherInfo.weather ? `http://openweathermap.org/img/w/${weatherInfo.weather[0].icon}.png` : null;
       }
 
+      // console.log(this.state);
+
       return (
         <div className="weather-box">
           <div className="box-header">
@@ -160,7 +200,6 @@ class WeatherBox extends React.Component {
           <div className="box-middle-content">
             <div className="middle-left">
               <h1>{this.convertTemp(majorTemp, 'f')}°</h1>
-
             </div>
             <div className="middle-right">
               <img className="weather-icon"
@@ -179,5 +218,7 @@ class WeatherBox extends React.Component {
     }
   }
 }
+
+
 
 export default WeatherBox;

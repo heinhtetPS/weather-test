@@ -1,7 +1,7 @@
 ## WEATHER APP
 [Live Link (not implemented yet)](https://github.com/heinhtetPS)
 
-This is a simple single-page app that retrieves current weather information for cities that I have lived in. Users can browse 5 cities on the homepage or get more detailed info, including a 5-day forecast, on the individual citys' page. 
+This is a simple single-page app that retrieves current weather information for cities that I have lived in. Users can browse 5 cities on the homepage or get more detailed info, including a 5-day forecast, on the individual citys' page.
 
 ### MVP GOALS
 - Site has a Homepage that shows the basic weather info for 5 different cities.
@@ -58,5 +58,5 @@ This is a simple single-page app that retrieves current weather information for 
   - Need to use setState instead of extend inside API call
   - Fixed this problem by using forceUpdate, can probably also use complicated variations of setState
 - next: Implement large page, fix css and icons, another api call for forecast?
-  - large page has no props when it starts, it will make its own API call to get forecasts
-- write a bit more about single page navi
+  - large page has no props when it starts, just call the forecast API with 6 count, number 0 is today
+- DANGER: Objects inside arrays that cannot be accessed by index
