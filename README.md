@@ -11,11 +11,11 @@ This is a simple single-page app that retrieves current weather information for 
 - Info is retrieved from an up-to-date API resource.
 
 ### Cities List
-- Brooklyn, NY
-- Framingham, MA
-- Redlands, CA
-- Nagoya, JP
-- Yangon, MM
+- Brooklyn, New York
+- Framingham, Massachusetts
+- Redlands, California
+- Nagoya, Japan
+- Yangon, Myanmar (Burma)
 
 ### Tech Info
 - The frontend utilizes React.js, specifically implemented using create-react-app for fast startup.
@@ -26,6 +26,7 @@ This is a simple single-page app that retrieves current weather information for 
   - extend (simple object merging)
   - temp-units-conv (convert kelvins to C or F)
   - didn't end up using unix-timestamp converter, my own solution was shorter
+  - gh-pages to deploy to github pages
 
 ### Implementation process outline and notes
 - Create frontend Homepage container with 5 weatherboxes (DONE)
@@ -51,8 +52,8 @@ This is a simple single-page app that retrieves current weather information for 
 - other random stuff like wind, humidity, uv, pressure
 
 ### Future Directions / Improvements
-- Use the DAILY API call instead of the forecast one which gives you 5 days of info, every 3 hours
-- Implement unit conveter option so we can see F or C
+- Use the DAILY API call instead of the forecast one which gives you a more appropriate results
+- Implement unit converter option so user can choose to see F or C
 - Instead of having cities set in stone, we can have the user choose a city via menu or search
 - Have style options such as dark mode or light mode
 
@@ -69,7 +70,9 @@ This is a simple single-page app that retrieves current weather information for 
 - next: Implement large page, fix css and icons, another api call for forecast?
   - large page has no props when it starts, just call the forecast API with 6 count, number 0 is today
 - DANGER: Objects inside arrays that cannot be accessed by index!!! (this cost me 2-3 hours)
+  - Example: `{ForecastList: [{etc: 10101}, {etc: 10101}, {etc: 10101}]}` 
+  - (Above array contains objects that track each day's weather info, but they cannot be accessed via `.ForecastList[0]`
   - Learn how to process these more easily
 - DANGER: API call for forecast was misinterpreted. Each entry wasn't 1 day, it was an interval of 3 hours.
   - The daily? API call would not let me retrieve with the current API Key so I had to make due with the forecast data.
-  - I simply rejected all data from the same day after the first one.
+  - I simply rejected useless data from the same day by tracking which days had already been forecasted
