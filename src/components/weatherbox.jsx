@@ -20,9 +20,9 @@ class WeatherBox extends React.Component {
     let dd = today.getDate();
     let mm = today.getMonth()+1; //January is 0!
     let yyyy = today.getFullYear();
-    if(dd<10)
+    if(dd < 10)
       dd = '0'+ dd;
-    if(mm<10)
+    if(mm < 10)
       mm = '0'+ mm;
   return(mm + '/' + dd + '/' + yyyy);
  }
@@ -43,7 +43,7 @@ class WeatherBox extends React.Component {
    if (city === "Brooklyn")
    city = 'brooklyn,us';
    let appID = '&appid=df00cda1893df4914640c19962cd1427';
-   let fullURL = staticURL + city + appID + "&cnt=6";
+   let fullURL = staticURL + city + appID;
 
    request(fullURL, (err, response, body) => {
      if (!err && response.statusCode === 200) {
@@ -91,52 +91,60 @@ class WeatherBox extends React.Component {
         default:
       }
 
-      let forecastDays = {};
+      let forecastDays = [];
 
       if (this.state.forecast === {}) {
         return (<p>Loading...</p>);
       } else {
 
-        //DATA came back in a weird way where I could not index into LIST using [0]
+        //DATA came back in a weird way where I could not index into LIST using [0].property
         //so the code below is used to transfer them into another container
         //Note: forecastDays[0] is current
+        let dayslist = [];
         for(var index in this.state.forecast.list) {
           if (this.state.forecast.list.hasOwnProperty(index)) {
-            forecastDays[index] = this.state.forecast.list[index];
+            //if this date isn't in days list, push into forecast
+            //then put the date in dayslist to ignore all other reports from same day
+            if (!dayslist.includes(this.state.forecast.list[index].dt_txt.slice(0,10))) {
+              forecastDays.push(this.state.forecast.list[index]);
+              dayslist.push(this.state.forecast.list[index].dt_txt.slice(0,10));
+            }
           }
         }
 
         //had to do it a 2nd time because these keys were still inaccessible
-        let current = forecastDays[0];
+        let current = forecastDays.splice(0,1);
         let main = {};
         let weather = {};
         let description = '';
         let wind = {};
-        for(var key in current) {
-          if (current.hasOwnProperty(key)) {
-            // console.log(key);
-            // console.log(current[key]);
+        let icon2 = '';
+        for(var key in current[0]) {
+          if (current[0].hasOwnProperty(key)) {
+            // // console.log(key);
+            // console.log(current[0][key]);
             if (key === 'main')
-            main = current[key];
+            main = current[0][key];
             if (key === 'weather')
-            weather = current[key];
+            weather = current[0][key];
             if (key === 'wind')
-            wind = current[key];
+            wind = current[0][key];
           }
         }
-        for(var key in weather) {
-          if (weather.hasOwnProperty(key))
-          description = weather[key].description;
+        //another one
+        for(var key2 in weather) {
+          if (weather.hasOwnProperty(key2)) {
+            description = weather[key2].description;
+            icon2 = `http://openweathermap.org/img/w/${weather[key2].icon}.png`;
+          }
         }
-
-        console.log(wind.speed);
 
         return (
           <div className="weather-box-large">
             <div className="big-box-left">
               <div className="box-header">
                 <h2 className="page-header">{cityname}</h2>
-                <h3>{this.getDate()}</h3>
+                <h3>Forecast for later today...</h3>
               </div>
               <div className="box-middle-content">
                 <div className="forecast-left">
@@ -145,7 +153,7 @@ class WeatherBox extends React.Component {
                 </div>
                 <div className="forecast-right">
                   <img className="weather-icon"
-                    src="http://icons-for-free.com/icon/download-cloud_forecast_grey_rain_sun_weather_icon-433363.png">
+                    src={icon2}>
                   </img>
                 </div>
               </div>
@@ -159,7 +167,10 @@ class WeatherBox extends React.Component {
               <Link to="/">Back</Link>
             </div>
             <div className="big-box-right">
-              <SingleDay />
+              {forecastDays.map(
+                day => <SingleDay
+                key={day.id}
+                info={day} />)}
               </div>
             </div>
           );

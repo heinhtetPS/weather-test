@@ -23,6 +23,7 @@ This is a simple single-page app that retrieves current weather information for 
   - request (to make easy API Calls)
   - extend (simple object merging)
   - temp-units-conv (convert kelvins to C or F)
+  - didn't end up using unix-timestamp converter, my own solution was shorter
 
 ### Implementation process outline and notes
 - Create frontend Homepage container with 5 weatherboxes (DONE)
@@ -47,6 +48,12 @@ This is a simple single-page app that retrieves current weather information for 
 - icons for all this stuff
 - other random stuff like wind, humidity, uv, pressure
 
+### Future Directions / Improvements
+- Use the DAILY API call instead of the forecast one which gives you 5 days of info, every 3 hours
+- Implement unit conveter option so we can see F or C
+- Instead of having cities set in stone, we can have the user choose a city via menu or search
+- Have style options such as dark mode or light mode
+
 ### Implementation issues/problems:
 - Problems displaying UTF-8 symbols
   - Fixed above by just copy pasting the symbol
@@ -59,4 +66,8 @@ This is a simple single-page app that retrieves current weather information for 
   - Fixed this problem by using forceUpdate, can probably also use complicated variations of setState
 - next: Implement large page, fix css and icons, another api call for forecast?
   - large page has no props when it starts, just call the forecast API with 6 count, number 0 is today
-- DANGER: Objects inside arrays that cannot be accessed by index
+- DANGER: Objects inside arrays that cannot be accessed by index!!! (this cost me 2-3 hours)
+  - Learn how to process these more easily
+- DANGER: API call for forecast was misinterpreted. Each entry wasn't 1 day, it was an interval of 3 hours.
+  - The daily? API call would not let me retrieve with the current API Key so I had to make due with the forecast data.
+  - I simply rejected all data from the same day after the first one.
